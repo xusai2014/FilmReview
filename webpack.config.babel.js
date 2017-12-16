@@ -6,6 +6,7 @@ export default {
     output: {
         path: path.resolve(__dirname, './bin'),
         filename: 'client.bundle.js',
+      publicPath:'/bin/',
     },
     devtool: '#source-map',
     module: {
@@ -15,7 +16,15 @@ export default {
               loader: 'babel-loader',
               exclude: /node_modules/,
               options:{
-                  presets:['env']
+                "presets": [
+                  "env",
+                  "stage-0",
+                  "react"
+                ],
+                "plugins": [
+                  "transform-react-jsx",
+                  "transform-decorators-legacy"
+                ]
               }
             },
             {
@@ -36,13 +45,29 @@ export default {
     resolve: {
         extensions: [ '.js', '.jsx','.scss','.less']
     },
-
     plugins: [
         new webpack.BannerPlugin('This file is created by Jerry'),
         new webpack.DefinePlugin({
             __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
             __PRERELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_PRERELEASE || 'true'))
         }),
-    ]
+    ],
+    devServer: {
+    proxy: {
+      '/api':{
+        target: 'https://rcs-admin-dev.suixingpay.com',
+        pathRewrite: {"^/api" : "/api"},
+        secure:false,
+        changeOrigin: true
+      },
+      '/nfs_data':{
+        target: 'http://172.16.136.71',
+      },
+    },
+    contentBase: [path.join(__dirname, 'public/html')],//t
+    historyApiFallback: true,
+    disableHostCheck: true,
+    https:true,
+  },
 
 }
