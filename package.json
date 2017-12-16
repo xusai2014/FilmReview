@@ -11,7 +11,7 @@
     "watch:client": "./node_modules/.bin/webpack --watch",
     "watch:server": "babel src --watch -d dist",
     "start:service": "sudo nodemon ./dist/server/www.js --watch",
-    "build": "./node_modules/.bin/babel src  -d dist & ./node_modules/.bin/webpack --watch"
+    "build": "./node_modules/.bin/babel src  -d dist & ./node_modules/.bin/webpack "
   },
   "keywords": [
     "Film",
@@ -33,6 +33,7 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.23.0",
+    "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.1.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-env": "^1.6.1",
