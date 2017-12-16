@@ -10,7 +10,8 @@
     "start": "npm-run-all --parallel watch:client watch:server start:service",
     "watch:client": "./node_modules/.bin/webpack --watch",
     "watch:server": "babel src --watch -d dist",
-    "start:service": "sudo nodemon ./dist/server/www.js --watch"
+    "start:service": "sudo nodemon ./dist/server/www.js --watch",
+    "build": "./node_modules/.bin/babel src  -d dist & ./node_modules/.bin/webpack --watch"
   },
   "keywords": [
     "Film",
@@ -40,6 +41,7 @@
     "bootstrap-loader": "^2.0.0-beta.22",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.1.0",
+    "forever": "^0.15.3",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "node-sass": "^4.7.2",
