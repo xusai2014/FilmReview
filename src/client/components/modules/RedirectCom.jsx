@@ -4,8 +4,12 @@ import { withRouter } from 'react-router-dom';
 @withRouter
 export default class RedirectCom extends React.Component{
   componentWillMount(){
-    if($.cookie('token')){
+    if(typeof $ !== 'undefined' && $.cookie('token')){
       this.props.history.push('login')
     }
+  }
+  render(){
+
+    return null;
   }
 }
