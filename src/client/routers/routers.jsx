@@ -1,10 +1,12 @@
 import React from 'react'
 import { Provider } from "react-redux";
 import  rootReducer from '../reducers';
+import RedirectCom from '../components/modules/RedirectCom';
 import store from '../store/store';
 import {
     Router,
-    Route
+    Route,
+  Switch
 } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory'
 
@@ -23,10 +25,10 @@ export default class Application extends React.Component {
         return (
             <Provider store={ storage } >
                 <Router history={createBrowserHistory()}>
-                <div >
-                    <Route path="/"><Route path="/" component={ArticlesListContianer} />
-                    </Route>
-                </div>
+                  <RedirectCom/>
+                  <Switch >
+                      <Route path="/" component={ArticlesListContianer} />
+                  </Switch>
                 </Router>
             </Provider>
         )

@@ -2,40 +2,31 @@ import webpack from 'webpack';
 import path from 'path'
 
 export default {
-    context: __dirname + '/src/client',
     entry:  path.resolve(__dirname, './src/client/index.jsx'),
     output: {
         path: path.resolve(__dirname, './bin'),
-
         filename: 'client.bundle.js',
-
-        sourceMapFilename: '[file].map'
     },
     devtool: '#source-map',
     module: {
-        loaders: [
-            {test: /\.jsx?$/, loader: 'babel-loader',exclude: /node_modules/,
-                query:{
-                    plugins:[
-                        [
-                            'import',{libraryName:'bootstrap',style:'css',javascript:'js'}
-                        ]
-                    ]
-                }
+        rules: [
+            {
+              test: /\.(jsx|js)?$/,
+              loader: 'babel-loader',
+              exclude: /node_modules/,
+              options:{
+                  presets:['env']
+              }
             },
-
             {
                 test: /\.scss$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader", // compiles Sass to CSS
-                    options: {
-                        includePaths: ["./public/scss/main.scss"]
-                    }
-                }]
+                  use: [
+                    "style-loader", // creates style nodes from JS strings,
+                    "css-loader", // translates CSS into CommonJS
+                    'postcss-loader',
+                    "sass-loader", // compiles Sass to CSS
+                ],
+                exclude:/node_modules/,
             },
             {test: /\.(png|jpg|svg)$/, loader: 'url-loader?limit=25000'},
             {test: /\.(woff|ttf|eot|woff2)$/, loader: 'url-loader?limit=100000'},
